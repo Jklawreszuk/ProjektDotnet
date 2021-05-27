@@ -7,4 +7,51 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <form>
+        <p>
+            Name: <input type="text" name="SearchString">
+            <input type="submit" value="Filter" />
+        </p>
+    </form>
 </div>
+
+
+        @if(Model.Recipe!=null)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Recipe[0].Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Recipe[0].Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Recipe[0].UserId)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Recipe)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserId)
+                        </td>
+                    </tr>
+                    }
+            
+                </tbody>
+            </table>
+
+
+        }
+       

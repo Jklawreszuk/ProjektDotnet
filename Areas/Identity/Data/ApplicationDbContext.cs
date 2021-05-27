@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ProjektDotnet.Models;
 
 namespace ProjektDotnet.Data
 {
@@ -14,6 +15,8 @@ namespace ProjektDotnet.Data
             : base(options)
         {
         }
+
+        public DbSet<Recipe> Recipe { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
