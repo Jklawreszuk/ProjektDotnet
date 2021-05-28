@@ -24,10 +24,8 @@ namespace ProjektDotnet.Pages
         public List<Recipe> Recipe { get; set; }
         public async Task OnGetAsync(string searchString)
         {
-            
             searchString = searchString ?? string.Empty;
             Recipe = _context.Recipe.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper())).ToList();
-
         }
     }
 }
