@@ -1,4 +1,6 @@
 @page
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
 @model SearchModel
 @{
     ViewData["Title"] = "Wyniki";
@@ -12,13 +14,13 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Recipe[0].Name)
+                            Tytuł
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Recipe[0].Description)
+                            Opis
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Recipe[0].UserId)
+                            Autor
                         </th>
                         <th></th>
                     </tr>
@@ -34,7 +36,7 @@
                             @Html.DisplayFor(modelItem => item.Description)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.UserId)
+                            @UserManager.FindByIdAsync(item.UserId).Result.UserName
                         </td>
                     </tr>
                     }
