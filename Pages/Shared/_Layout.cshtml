@@ -28,6 +28,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/#">#</a>
                         </li>
                     </ul>
+                     <form asp-page="Search" method="GET" class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Wpisz szukany przepis tutaj" name="searchString">
+                        <button class="btn btn-outline-success" type="submit">Wyszukaj</button>
+                    </form>
                     <partial name="_LoginPartial.cshtml"/>
                 </div>
             </div>
