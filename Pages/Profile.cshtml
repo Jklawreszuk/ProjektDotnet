@@ -4,7 +4,30 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+
+    <div class="col-md-12">
+        <h1 class="text-center">
+            nazwa użytkownika
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+
+    @for (int j = 0; j < 12; j++)
+    {
+        <div class="col-md-4 py-2">
+            <div class="card h-100">
+                <img class="card-img-top" src="" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">title</h5>
+                    <h6 class="card-subtitle mb-2">subtitle</h6>
+                    <p class="card-text">description</p>
+                    <a href="" class="btn btn-primary">Link</a>
+                </div>
+            </div>
+        </div>
+    }
+
 </div>
