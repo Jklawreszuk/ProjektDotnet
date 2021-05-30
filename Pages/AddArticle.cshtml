@@ -1,0 +1,26 @@
+@page
+@model AddArticleModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<div class="row">
+    <div class="col-12">
+        <form>
+            <div class="form-group">
+                <label for="#">Tytuł</label>
+                <input type="text" class="form-control" placeholder="Wpisz swój tytuł tutaj">
+
+            </div>
+            <div class="form-group">
+                <label for="#">Przepis</label>
+                <textarea class="form-control" placeholder="Wpisz swój przepis tutaj"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="#">Zdjęcia</label>
+                <input type='file' class="form-control" accept="image/png, image/jpeg" multiple>
+            </div>
+                <button type="submit" class="btn btn-primary">Dodaj przepis</button>
+        </form>
+    </div>
+</div>
