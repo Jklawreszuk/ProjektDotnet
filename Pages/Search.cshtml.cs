@@ -26,7 +26,7 @@ namespace ProjektDotnet.Pages
         public async Task OnGetAsync(string searchString)
         {
             searchString = searchString ?? string.Empty;
-            Recipe = await _context.Recipe.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper())).ToListAsync();
+            Recipe = await _context.Recipe.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper())).OrderByDescending(s => s.Date).ToListAsync();
         }
     }
 }
