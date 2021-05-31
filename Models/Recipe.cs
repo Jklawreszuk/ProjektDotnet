@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProjektDotnet.Models
 {
@@ -19,7 +17,9 @@ namespace ProjektDotnet.Models
         public string Description { get; set; }
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
-
+        public ICollection<Ingredient> Ingredients { get; set; }
+        public DateTime Date { get; set; }
+        public ICollection<Images> Images { get; set; }
         public ICollection<RecipeCategory> RecipeCategories { get; set; }
     }
 }
