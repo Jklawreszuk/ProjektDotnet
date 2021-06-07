@@ -1,14 +1,13 @@
-@page
+@page "/Profile/{username}"
 @model ProfileModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Profil użytkownika";
 }
 
 <div class="row">
-
     <div class="col-md-12">
         <h1 class="text-center">
-            nazwa użytkownika
+            @Model.UserName
         </h1>
     </div>
 </div>

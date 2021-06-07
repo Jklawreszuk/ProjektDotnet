@@ -11,15 +11,15 @@ namespace ProjektDotnet.Pages
     public class ProfileModel : PageModel
     {
         private readonly ILogger<ProfileModel> _logger;
-
+        public string UserName { get; set; }
         public ProfileModel(ILogger<ProfileModel> logger)
         {
             _logger = logger;
         }
 
-        public void OnGet()
+        public void OnGet(string username)
         {
-
+            UserName = username;
         }
     }
 }
