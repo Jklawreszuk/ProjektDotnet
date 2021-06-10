@@ -16,6 +16,7 @@ namespace ProjektDotnet.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly ApplicationDbContext _context;
+        public List<Recipe> Recipes { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext context)
         {
@@ -25,7 +26,7 @@ namespace ProjektDotnet.Pages
 
         public async Task OnGetAsync(string searchCategory, string searchString)
         {
-               
+             Recipes = await _context.Recipe.Take(10).ToListAsync();
         }
     }
 }
