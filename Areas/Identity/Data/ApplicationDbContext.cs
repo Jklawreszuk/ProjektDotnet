@@ -17,6 +17,8 @@ namespace ProjektDotnet.Data
         }
 
         public DbSet<Recipe> Recipe { get; set; }
+        public DbSet<Images> Images { get; set; }
+        public DbSet<Ingredient> Ingredient { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<RecipeCategory> RecipeCategory { get; set; }
 
