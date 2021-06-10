@@ -23,17 +23,16 @@ namespace ProjektDotnet.Pages
             _context = context;
         }
 
-       // public List<Recipe> Recipe { get; set; }
-        //public SelectList Category { get; set; }
+        public SelectList Category { get; set; }
+        public string SearchCategory { get; set; }
         public List<Recipe> RecipeCategories { get; set; } 
         
 
         public async Task OnGetAsync(string searchString, string searchCategory, string searchAuthor)
         {
             searchString = searchString ?? string.Empty;
-            // Recipe = await _context.Recipe.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper())).OrderByDescending(s => s.Date).ToListAsync();
-
-            //IQueryable<string> categoryQuery = from c in _context.Category orderby c.Name select c.Name;
+            
+            IQueryable<string> categoryQuery = from c in _context.Category orderby c.Name select c.Name;
 
             searchAuthor = searchAuthor ?? string.Empty;
             searchCategory = searchCategory ?? string.Empty;
@@ -46,9 +45,9 @@ namespace ProjektDotnet.Pages
                                                   && u.UserName.ToUpper().Contains(searchAuthor.ToUpper())
                                                   orderby r.Date
                                   select r
-              );
+              );   
 
-            //Category = new SelectList(await categoryQuery.ToListAsync());
+            Category = new SelectList(await categoryQuery.ToListAsync());
             RecipeCategories = await recipeCategory.ToListAsync();
             
         }
