@@ -14,10 +14,10 @@ namespace ProjektDotnet.Models
         public string Description { get; set; }  
   
         [Required(ErrorMessage = "Składniki są wymagane")]  
-        public ICollection<SelectListItem> Ingredients { get; set; }  
+        public string[] Ingredients { get; set; }  
   
         [Required(ErrorMessage = "Wybierz kategorie")]  
-        public ICollection<Category> Categories { get; set; }   
+        public string[] Categories { get; set; }   
         public IEnumerable<IFormFile> ProfileImages { get; set; }  
     }
 }

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections;
 
 namespace ProjektDotnet.Pages
 {
@@ -24,13 +25,13 @@ namespace ProjektDotnet.Pages
         private readonly IWebHostEnvironment _hostEnvironment;
         private UserManager<IdentityUser> _userManager;
         private SignInManager<IdentityUser> _signInManager;
-        
-        public List<Category> Categories {get;set;}
+
+        public List<Category> Categories { get; set; }
 
         [BindProperty]
         public RecipeViewModel RecipeViewModel { get; set; }
 
-        public AddArticleModel(ILogger<AddArticleModel> logger, ApplicationDbContext applicationDbContext,IWebHostEnvironment hostEnvironment,UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager) 
+        public AddArticleModel(ILogger<AddArticleModel> logger, ApplicationDbContext applicationDbContext, IWebHostEnvironment hostEnvironment, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _applicationDbContext = applicationDbContext;
             _logger = logger;
@@ -44,52 +45,63 @@ namespace ProjektDotnet.Pages
             Categories = _applicationDbContext.Category.ToList();
         }
 
-        private IEnumerable<Ingredient> GetIngredients(ICollection<SelectListItem> selectList ){
+        private IEnumerable<Ingredient> GetIngredients(string[] selectList)
+        {
             foreach (var item in selectList)
             {
-                yield return new Ingredient(){Name=item.Text};
+                yield return new Ingredient() { Name = item };
             }
-            
-        }
 
+        }
         public IActionResult OnPost()
         {
-            // if(ModelState.IsValid)
-            // {
-            //     var recipe = new Recipe(){
-            //         Name = RecipeViewModel.Name,
-            //         Description = RecipeViewModel.Description,
-            //         User=_userManager.FindByNameAsync(User.Identity.Name).Result,
-            //         Ingredients=GetIngredients(RecipeViewModel.Ingredients).ToList(),
-            //         Date=DateTime.Now,
-            //         Images = UploadedFile(RecipeViewModel).ToList()
-            //     };
-            //     _applicationDbContext.Add(recipe);
-            //     _applicationDbContext.SaveChanges();
-            // }
+            if (ModelState.IsValid)
+            {
+                var recipe = new Recipe()
+                {
+                    Name = RecipeViewModel.Name,
+                    Description = RecipeViewModel.Description,
+                    User = _userManager.FindByNameAsync(User.Identity.Name).Result,
+                    Ingredients = GetIngredients(RecipeViewModel.Ingredients).ToList(),
+                    Date = DateTime.Now,
+                    Images = UploadedFile(RecipeViewModel).ToList()
+                };
+                _applicationDbContext.Add(recipe);
+                _applicationDbContext.SaveChanges();
+            }
 
             return RedirectToPage();
-            
-        }
-        private IEnumerable<Images> UploadedFile(RecipeViewModel model)  
-        {  
-            string uniqueFileName = null;  
-  
-            if (model.ProfileImages != null)  
-            {  
-                string uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "images");  
 
-                foreach (var item in model.ProfileImages)
+        }
+        private IEnumerable<Images> UploadedFile(RecipeViewModel model)
+        {
+
+            if (model.ProfileImages != null)
+            {
+                
+                foreach (var img in model.ProfileImages)
                 {
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + item.FileName;  
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);  
-                    using var fileStream = new FileStream(filePath, FileMode.Create);
-                    item.CopyTo(fileStream);   
-                    yield return new Images(){Image=uniqueFileName};  
+                    using var memoryStream = new MemoryStream();
+
+                    img.CopyTo(memoryStream);
+
+                    // Upload the file if less than 2 MB
+                    if (memoryStream.Length < 2097152)
+                    {
+                        var file = new Images() { Image = memoryStream.ToArray() };
+                        yield return file;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("File", "The file is too large.");
+                    }
+                    
+
+
                 }
-                 
-            }  
-            
-        }  
+
+            }
+
+        }
     }
 }
