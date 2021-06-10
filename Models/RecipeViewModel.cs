@@ -18,6 +18,6 @@ namespace ProjektDotnet.Models
   
         [Required(ErrorMessage = "Wybierz kategorie")]  
         public ICollection<Category> Categories { get; set; }   
-        public IFormFile ProfileImages { get; set; }  
+        public IEnumerable<IFormFile> ProfileImages { get; set; }  
     }
 }
