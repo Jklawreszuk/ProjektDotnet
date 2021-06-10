@@ -7,43 +7,60 @@
 }
 
 
+<form>
+    <p>
+        Category: <select asp-for="SearchCategory" asp-items="Model.Category">
+            <option value="">All</option>
+        </select>
 
-        @if(Model.Recipe!=null)
-        {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            Tytuł
-                        </th>
-                        <th>
-                            Opis
-                        </th>
-                        <th>
-                            Autor
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Recipe)
-                    {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @UserManager.FindByIdAsync(item.UserId).Result.UserName
-                        </td>
-                    </tr>
-                    }
-            
-                </tbody>
-            </table>
+        Nazwa: <input type="text" name="SearchString">
+
+        Autor: <input type="text" name="SearchAuthor">
+        <input type="submit" value="Wyszukaj"/>
+    </p>
+</form>
 
 
-        }
-       
+@if (Model.RecipeCategories != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Tytuł
+                </th>
+                <th>
+                    Opis
+                </th>
+                <th>
+                    Autor
+                </th>
+                <th>
+                    Link
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.RecipeCategories)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @UserManager.FindByIdAsync(item.UserId).Result.UserName
+                    </td>
+                    <td>
+                        <a href="" class="btn btn-primary">Link</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+}
