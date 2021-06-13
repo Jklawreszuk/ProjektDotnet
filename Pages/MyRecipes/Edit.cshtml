@@ -1,0 +1,67 @@
+@page
+@model ProjektDotnet.Pages.MyRecipes.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Recipe</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Recipe.Id" />
+            <div class="form-group">
+                <label asp-for="RecipeViewModel.Name" class="control-label"></label>
+                <input asp-for="RecipeViewModel.Name" class="form-control" />
+                <span asp-validation-for="RecipeViewModel.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecipeViewModel.Ingredients">Składniki</label>
+                <select class="has-token-skl form-control"  asp-for="RecipeViewModel.Ingredients" multiple>
+                @foreach (var item in Model.RecipeViewModel.Ingredients)
+                {
+                    <option value=@item>@item</option>
+                }
+
+                </select>
+
+                <span asp-validation-for="RecipeViewModel.Ingredients" class="font-weight-bold text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecipeViewModel.Description" class="control-label"></label>
+                <input asp-for="RecipeViewModel.Description" class="form-control" />
+                <span asp-validation-for="RecipeViewModel.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group categories">
+                <label asp-for="RecipeViewModel.Categories">Kategorie</label>
+                <select class="has-token-kat form-control" asp-for="RecipeViewModel.Categories" multiple>
+                @foreach (var item in Model.Categories)
+                {
+                    <option value=@item.Name>@item.Name</option>
+                }
+                </select>
+                <span asp-validation-for="RecipeViewModel.Categories" class="font-weight-bold text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecipeViewModel.ProfileImages">Zdjęcia</label>
+                <input class="form-control" asp-for="RecipeViewModel.ProfileImages" type="file" accept="image/png, image/jpeg" multiple>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

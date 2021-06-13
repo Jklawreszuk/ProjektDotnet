@@ -1,6 +1,6 @@
 @page
 @using Microsoft.AspNetCore.Identity
-@model MyRecipes
+@model FavoritesModel
 @{
     ViewData["Title"] = "Moje przepisy";
 }
@@ -32,12 +32,12 @@
                     <td><a asp-page="./Article" asp-route-id="@rec.Id" class="btn btn-primary">Link</a>
                     </td>
                     <td>
-                        <form method="POST" action="ModifyRecipe">
+                        <form method="PATCH" action="ModifyRecipe">
                             <input type="hidden" value=@rec.Id/>
                             <button type="submit" class="btn btn-primary">Modyfikuj</button>
                         </form>
 
-                        <form method="POST" action="DeleteRecipe">
+                        <form method="DELETE" action="DeleteRecipe">
                             <input type="hidden" value=@rec.Id/>
                             <button type="submit" class="btn btn-primary">Usuń</button>
                         </form>

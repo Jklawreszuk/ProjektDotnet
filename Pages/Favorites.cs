@@ -11,13 +11,13 @@ using ProjektDotnet.Models;
 
 namespace ProjektDotnet.Pages
 {
-    public class MyRecipes : PageModel
+    public class FavoritesModel : PageModel
     {
-        private readonly ILogger<MyRecipes> _logger;
+        private readonly ILogger<FavoritesModel> _logger;
         private readonly ApplicationDbContext _context;
         public List<Recipe> Recipes { get; set; }
 
-        public MyRecipes(ILogger<MyRecipes> logger, ApplicationDbContext context)
+        public FavoritesModel(ILogger<FavoritesModel> logger, ApplicationDbContext context)
         {
             _logger = logger;
             _context = context;
@@ -25,7 +25,7 @@ namespace ProjektDotnet.Pages
 
         public async Task OnGetAsync()
         {
-             Recipes = await _context.Recipe.Where(r=>r.User.UserName==User.Identity.Name).ToListAsync();
+             Recipes = await _context.Recipe.ToListAsync();
         }
     }
 }
