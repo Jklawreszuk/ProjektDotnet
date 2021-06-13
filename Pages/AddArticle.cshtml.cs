@@ -45,14 +45,7 @@ namespace ProjektDotnet.Pages
             Categories = _applicationDbContext.Category.ToList();
         }
 
-        private IEnumerable<Ingredient> GetIngredients(string[] selectList)
-        {
-            foreach (var item in selectList)
-            {
-                yield return new Ingredient() { Name = item };
-            }
-
-        }
+        
         public IActionResult OnPost()
         {
             if (ModelState.IsValid)
@@ -62,9 +55,10 @@ namespace ProjektDotnet.Pages
                     Name = RecipeViewModel.Name,
                     Description = RecipeViewModel.Description,
                     User = _userManager.FindByNameAsync(User.Identity.Name).Result,
-                    Ingredients = GetIngredients(RecipeViewModel.Ingredients).ToList(),
+                    Ingredients = Utilis.GetIngredients(RecipeViewModel.Ingredients).ToList(),
+                    RecipeCategories=Utilis.GetRecipeCategories(RecipeViewModel.Categories).ToList(),
                     Date = DateTime.Now,
-                    Images = UploadedFile(RecipeViewModel).ToList()
+                    Images = Utilis.UploadedFile(RecipeViewModel).ToList()
                 };
                 _applicationDbContext.Add(recipe);
                 _applicationDbContext.SaveChanges();
@@ -73,35 +67,7 @@ namespace ProjektDotnet.Pages
             return RedirectToPage();
 
         }
-        private IEnumerable<Images> UploadedFile(RecipeViewModel model)
-        {
+        
 
-            if (model.ProfileImages != null)
-            {
-                
-                foreach (var img in model.ProfileImages)
-                {
-                    using var memoryStream = new MemoryStream();
-
-                    img.CopyTo(memoryStream);
-
-                    // Upload the file if less than 2 MB
-                    if (memoryStream.Length < 2097152)
-                    {
-                        var file = new Images() { Image = memoryStream.ToArray() };
-                        yield return file;
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("File", "The file is too large.");
-                    }
-                    
-
-
-                }
-
-            }
-
-        }
     }
 }
