@@ -24,7 +24,7 @@ namespace ProjektDotnet.Pages
             _context = context;
         }
 
-        public async Task OnGetAsync(string searchCategory, string searchString)
+        public async Task OnGetAsync()
         {
              Recipes = await _context.Recipe.Take(10).ToListAsync();
         }
