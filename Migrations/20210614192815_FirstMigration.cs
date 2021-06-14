@@ -174,7 +174,9 @@ namespace ProjektDotnet.Migrations
                     Name = table.Column<string>(maxLength: 100, nullable: false),
                     Description = table.Column<string>(maxLength: 500, nullable: false),
                     UserId = table.Column<string>(nullable: true),
-                    Date = table.Column<DateTime>(nullable: false)
+                    Date = table.Column<DateTime>(nullable: false),
+                    LikeCount = table.Column<int>(nullable: false),
+                    DislikeCount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -185,6 +187,32 @@ namespace ProjektDotnet.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Favourites",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(nullable: false),
+                    RecipeId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Favourites", x => new { x.UserId, x.RecipeId });
+                    table.ForeignKey(
+                        name: "FK_Favourites_Recipe_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipe",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade,
+                        onUpdate: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Favourites_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade,
+                        onUpdate: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -223,6 +251,31 @@ namespace ProjektDotnet.Migrations
                         name: "FK_Ingredient_Recipe_RecipeId",
                         column: x => x.RecipeId,
                         principalTable: "Recipe",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ratings",
+                columns: table => new
+                {
+                    RecipeId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: false),
+                    IsLike = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ratings", x => new { x.UserId, x.RecipeId });
+                    table.ForeignKey(
+                        name: "FK_Ratings_Recipe_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipe",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ratings_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -289,6 +342,11 @@ namespace ProjektDotnet.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Favourites_RecipeId",
+                table: "Favourites",
+                column: "RecipeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Images_RecipeId",
                 table: "Images",
                 column: "RecipeId");
@@ -296,6 +354,11 @@ namespace ProjektDotnet.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Ingredient_RecipeId",
                 table: "Ingredient",
+                column: "RecipeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ratings_RecipeId",
+                table: "Ratings",
                 column: "RecipeId");
 
             migrationBuilder.CreateIndex(
@@ -327,10 +390,16 @@ namespace ProjektDotnet.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Favourites");
+
+            migrationBuilder.DropTable(
                 name: "Images");
 
             migrationBuilder.DropTable(
                 name: "Ingredient");
+
+            migrationBuilder.DropTable(
+                name: "Ratings");
 
             migrationBuilder.DropTable(
                 name: "RecipeCategory");

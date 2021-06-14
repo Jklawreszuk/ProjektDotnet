@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -14,6 +15,8 @@ namespace ProjektDotnet.Pages
     {
         private readonly ILogger<ArticleModel> _logger;
         private readonly ApplicationDbContext _context;
+        private UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _applicationDbContext;
 
         public Recipe Recipe { get; set; }
         public List<RecipeCategory> Category { get; set; }
@@ -21,10 +24,12 @@ namespace ProjektDotnet.Pages
         public List<Ingredient> Ingredients { get; set; }
         public List<Images> Images {get;set;}
 
-        public ArticleModel(ILogger<ArticleModel> logger,ApplicationDbContext context)
+        public ArticleModel(ILogger<ArticleModel> logger,ApplicationDbContext context, UserManager<ApplicationUser> userManager, ApplicationDbContext applicationDbContext)
         {
             _logger = logger;
             _context = context;
+            _userManager = userManager;
+            _applicationDbContext = applicationDbContext;
         }
 
         public void OnGet(int id)
@@ -34,6 +39,19 @@ namespace ProjektDotnet.Pages
            Ingredients = _context.Ingredient.Where(r=>r.RecipeId==id).ToList();
            Images = _context.Images.Where(i=>i.RecipeId==id).ToList();
 
+        }
+
+        public IActionResult OnPost()
+        {
+            var favourites = new Favourites()
+            {
+                RecipeId = Recipe.Id,
+                User = _userManager.FindByNameAsync(User.Identity.Name).Result
+            };
+
+            _applicationDbContext.Add(favourites);
+            _applicationDbContext.SaveChanges();
+            return RedirectToPage();
         }
     }
 }

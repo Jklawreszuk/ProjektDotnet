@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProjektDotnet.Data;
+using ProjektDotnet.Models;
 
 namespace ProjektDotnet
 {
@@ -27,8 +28,8 @@ namespace ProjektDotnet
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddDbContext<ApplicationDbContext>(opt=>opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDbContext<ApplicationDbContext>(opt=>opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
+            services.AddDefaultIdentity<ApplicationUser> (options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<ApplicationDbContext>();
         }
 

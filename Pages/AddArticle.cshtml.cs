@@ -23,15 +23,15 @@ namespace ProjektDotnet.Pages
         private readonly ILogger<AddArticleModel> _logger;
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IWebHostEnvironment _hostEnvironment;
-        private UserManager<IdentityUser> _userManager;
-        private SignInManager<IdentityUser> _signInManager;
+        private UserManager<ApplicationUser> _userManager;
+        private SignInManager<ApplicationUser> _signInManager;
 
         public List<Category> Categories { get; set; }
 
         [BindProperty]
         public RecipeViewModel RecipeViewModel { get; set; }
 
-        public AddArticleModel(ILogger<AddArticleModel> logger, ApplicationDbContext applicationDbContext, IWebHostEnvironment hostEnvironment, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AddArticleModel(ILogger<AddArticleModel> logger, ApplicationDbContext applicationDbContext, IWebHostEnvironment hostEnvironment, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _applicationDbContext = applicationDbContext;
             _logger = logger;

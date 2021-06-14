@@ -1,8 +1,9 @@
 @page "/Article/{id}"
 @using Microsoft.AspNetCore.Identity
+@using ProjektDotnet.Models;
 @using System.IO
 @using System.Drawing
-@inject UserManager<IdentityUser> UserManager
+@inject UserManager<ApplicationUser> UserManager
 @model ArticleModel
 @{
     ViewData["Title"] = "Artykuł";
@@ -15,7 +16,9 @@
         </h1>
     </div>
     <div class="col-md-auto">
-        <button type="submit" class="d-inline btn btn-primary">Dodaj do ulubionych</button>
+        <form method="post">
+            <button type="submit" class="d-inline btn btn-primary">Dodaj do ulubionych</button>
+        </form>
     </div>
 </div>
 
@@ -74,7 +77,7 @@
             <div class="col-12">
                 <h3>
                     @{
-                        var userName= @UserManager.FindByIdAsync(Model.Recipe.UserId).Result.UserName;
+                        var userName = @UserManager.FindByIdAsync(Model.Recipe.UserId).Result.UserName;
                     }
                     Autor <a asp-page="/Profile" asp-route-username=@userName>@userName</a>
                 </h3>
@@ -85,6 +88,14 @@
                 <h3>
                     Liczba plusów
                 </h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form method="post">
+                    <button type="submit" class="d-inline btn btn-primary">+</button>
+                    <button type="submit" class="d-inline btn btn-primary">-</button>
+                </form>
             </div>
         </div>
     </div>
@@ -101,4 +112,3 @@
             </p>
         </div>
     </div>
-</div>

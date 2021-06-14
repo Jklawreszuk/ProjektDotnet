@@ -1,6 +1,7 @@
 @page
 @using Microsoft.AspNetCore.Identity
-@inject UserManager<IdentityUser> UserManager
+@using ProjektDotnet.Models;
+@inject UserManager<ApplicationUser> UserManager
 @model SearchModel
 @{
     ViewData["Title"] = "Wyniki";
@@ -16,7 +17,7 @@
         Nazwa: <input type="text" name="SearchString">
 
         Autor: <input type="text" name="SearchAuthor">
-        <input type="submit" value="Wyszukaj"/>
+        <input type="submit" value="Wyszukaj" />
     </p>
 </form>
 
@@ -55,7 +56,7 @@
                         @UserManager.FindByIdAsync(item.UserId).Result.UserName
                     </td>
                     <td>
-                        <a href="" class="btn btn-primary">Link</a>
+                        <a asp-page="./Article" asp-route-id="@item.Id" class="btn btn-primary">Link</a>
                     </td>
                 </tr>
             }
