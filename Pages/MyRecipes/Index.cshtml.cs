@@ -29,7 +29,7 @@ namespace ProjektDotnet.Pages.MyRecipes
         public async Task OnGetAsync()
         {
             Recipe = await _context.Recipe
-                .Include(r => r.User).ToListAsync();
+                .Include(r => r.User).Where(n=>n.UserId==User.FindFirstValue(ClaimTypes.NameIdentifier)).ToListAsync();
         }
 
         public async Task<IActionResult> OnPostAsync()
