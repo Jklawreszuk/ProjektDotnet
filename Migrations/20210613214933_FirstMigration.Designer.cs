@@ -9,8 +9,8 @@ using ProjektDotnet.Data;
 namespace ProjektDotnet.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210531211744_DateActMigr")]
-    partial class DateActMigr
+    [Migration("20210613214933_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -236,10 +236,10 @@ namespace ProjektDotnet.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("TEXT");
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("BLOB");
 
-                    b.Property<int?>("RecipeId")
+                    b.Property<int>("RecipeId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -258,7 +258,7 @@ namespace ProjektDotnet.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("RecipeId")
+                    b.Property<int>("RecipeId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -367,14 +367,18 @@ namespace ProjektDotnet.Migrations
                 {
                     b.HasOne("ProjektDotnet.Models.Recipe", null)
                         .WithMany("Images")
-                        .HasForeignKey("RecipeId");
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjektDotnet.Models.Ingredient", b =>
                 {
-                    b.HasOne("ProjektDotnet.Models.Recipe", null)
+                    b.HasOne("ProjektDotnet.Models.Recipe", "Recipe")
                         .WithMany("Ingredients")
-                        .HasForeignKey("RecipeId");
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjektDotnet.Models.Recipe", b =>
