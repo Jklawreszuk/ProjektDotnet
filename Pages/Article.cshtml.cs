@@ -24,6 +24,9 @@ namespace ProjektDotnet.Pages
         public List<Ingredient> Ingredients { get; set; }
         public List<Images> Images {get;set;}
 
+        [BindProperty]
+        public int RowId { get; set; }
+
         public ArticleModel(ILogger<ArticleModel> logger,ApplicationDbContext context, UserManager<ApplicationUser> userManager, ApplicationDbContext applicationDbContext)
         {
             _logger = logger;
@@ -45,7 +48,7 @@ namespace ProjektDotnet.Pages
         {
             var favourites = new Favourites()
             {
-                RecipeId = Recipe.Id,
+                RecipeId = RowId,
                 User = _userManager.FindByNameAsync(User.Identity.Name).Result
             };
 

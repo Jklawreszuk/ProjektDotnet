@@ -17,6 +17,7 @@
     </div>
     <div class="col-md-auto">
         <form method="post">
+            <input type="hidden" asp-for="RowId" value="@Model.Recipe.Id"/>
             <button type="submit" class="d-inline btn btn-primary">Dodaj do ulubionych</button>
         </form>
     </div>
