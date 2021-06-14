@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Aspnetcore.identity.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.Aspnetcore.identity.ui" Version="3.1.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.design" Version="3.1.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
