@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,10 +17,12 @@ namespace ProjektDotnet.Pages.MyRecipes
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _appUser;
 
-        public EditModel(ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context, UserManager<ApplicationUser> appUser)
         {
             _context = context;
+            _appUser = appUser;
         }
 
         [BindProperty]
@@ -41,12 +44,12 @@ namespace ProjektDotnet.Pages.MyRecipes
             var cat = Recipe?.RecipeCategories?.Select(p=>p.Category?.Name)?.ToArray();
             RecipeViewModel = new RecipeViewModel()
             {
-
+                Id=Recipe.Id,
                 Name = Recipe.Name,
                 Description = Recipe.Description,
                 Ingredients = ing,
                 Categories =  cat, 
-                // ProfileImages = Recipe.Images.ToArray()
+                ProfileImages = null
 
             };
             Categories = await _context.Category.ToListAsync();
@@ -70,20 +73,16 @@ namespace ProjektDotnet.Pages.MyRecipes
                 return Page();
             }
 
+            Recipe = await _context.Recipe
+                .Include("User").Include("RecipeCategories.Category").Include("Ingredients").Include("Images").FirstOrDefaultAsync(m => m.Id == RecipeViewModel.Id);
+            Recipe.Name =  RecipeViewModel.Name;
+            Recipe.Description = RecipeViewModel.Description;
+            Recipe.Ingredients = Utilis.GetIngredients(RecipeViewModel.Ingredients).ToList();
+            Recipe.Date = DateTime.Now;
+            Recipe.Images.Clear();
+            Recipe.Images = Utilis.UploadedFile(RecipeViewModel)?.ToList();
 
-            var recipe = new Recipe()
-            {
-                Id = Recipe.Id,
-                Name = RecipeViewModel.Name,
-                Description = RecipeViewModel.Description,
-                User = Recipe.User,
-                Ingredients = Utilis.GetIngredients(RecipeViewModel.Ingredients).ToList(),
-                RecipeCategories = Utilis.GetRecipeCategories(RecipeViewModel.Categories).ToList(),
-                Date = DateTime.Now,
-                Images = Utilis.UploadedFile(RecipeViewModel).ToList()
-            };
-
-            _context.Recipe.Update(recipe);
+            _context.Entry(Recipe).State = EntityState.Modified;
 
             try
             {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using ProjektDotnet.Models;
 
 public static class Utilis
@@ -12,15 +13,13 @@ public static class Utilis
             yield return new Ingredient() { Name = item };
         }
     }
-    public static IEnumerable<RecipeCategory> GetRecipeCategories(string[] selectList)
+    public static IEnumerable<RecipeCategory> GetRecipeCategories(string[] selectList,List<Category> category)
     {
         foreach (var item in selectList)
         {
             yield return new RecipeCategory() 
-            { 
-                Category = new Category(){
-                    Name = item 
-                }
+            {
+                CategoryId = category.Where(p=>p.Name==item).First().Id 
             };
         }
     }

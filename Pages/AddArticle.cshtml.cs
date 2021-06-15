@@ -56,7 +56,7 @@ namespace ProjektDotnet.Pages
                     Description = RecipeViewModel.Description,
                     User = _userManager.FindByNameAsync(User.Identity.Name).Result,
                     Ingredients = Utilis.GetIngredients(RecipeViewModel.Ingredients).ToList(),
-                    RecipeCategories=Utilis.GetRecipeCategories(RecipeViewModel.Categories).ToList(),
+                    RecipeCategories=Utilis.GetRecipeCategories(RecipeViewModel.Categories,_applicationDbContext.Category.ToList()).ToList(),
                     Date = DateTime.Now,
                     Images = Utilis.UploadedFile(RecipeViewModel).ToList()
                 };

@@ -8,6 +8,9 @@ namespace ProjektDotnet.Models
 {
     public class RecipeViewModel
     {
+        [Required(ErrorMessage = "Id jest wymagane")]  
+        public int Id { get; set; }
+        
         [Required(ErrorMessage = "Tytuł jest wymagany")]  
         [Display(Name = "First Name")]  
         public string Name { get; set; }  
