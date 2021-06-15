@@ -35,7 +35,7 @@ namespace ProjektDotnet.Pages.MyRecipes
             }
 
             Recipe = await _context.Recipe
-                .Include("User").Include("RecipeCategories").Include("Ingredients").FirstOrDefaultAsync(m => m.Id == id);
+                .Include("User").Include("RecipeCategories.Category").Include("Ingredients").FirstOrDefaultAsync(m => m.Id == id);
 
             var ing = Recipe?.Ingredients?.Select(p=>p.Name)?.ToArray();
             var cat = Recipe?.RecipeCategories?.Select(p=>p.Category?.Name)?.ToArray();
