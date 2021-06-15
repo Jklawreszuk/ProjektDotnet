@@ -26,7 +26,7 @@ namespace ProjektDotnet.Pages
 
         public async Task OnGetAsync()
         {
-             Recipes = await _context.Recipe.Take(10).ToListAsync();
+             Recipes = await _context.Recipe.OrderByDescending(p=>p.LikeCount).Take(10).ToListAsync();
         }
     }
 }
