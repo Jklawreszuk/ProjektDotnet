@@ -1,8 +1,5 @@
-@page
-@using Microsoft.AspNetCore.Identity
-@model FavoritesModel
 @{
-    ViewData["Title"] = "Moje przepisy";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
 <div class="row">
@@ -11,8 +8,11 @@
         <h1>Moje przepisy </h1>
     </div>
 </div>
-
+ 
 <div class="row">
+     @if(Model?.Count>0){
+                    
+                
     <table class="table">
             <thead>
                 <tr>
@@ -23,24 +23,27 @@
                 </tr>
             </thead>
             <tbody>
-    @foreach (var rec in Model.Recipes)
+              
+    @foreach (var m in Model)
     {
-        
+        var rec = m.Recipe;
                 <tr>
                     <td>@rec.Name</td>
                     <td>@rec.Description</td>
-                    <td><a asp-page="./Article" asp-route-id="@rec.Id" class="btn btn-primary">Link</a>
+                    <td><a asp-controller="Article" asp-action="Index" asp-route-id="@rec.Id">Link</a>
                     </td>
                     <td>
-                        <form method="PATCH" action="ModifyRecipe">
-                            <input type="hidden" value=@rec.Id/>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                        <form method="post" asp-controller="Favourites" asp-action="Modify">
+                            <input type="hidden" name="RowId" value=@rec.Id>
                             <button type="submit" class="btn btn-primary">Modyfikuj</button>
                         </form>
 
-                        <form method="DELETE" action="DeleteRecipe">
-                            <input type="hidden" value=@rec.Id/>
-                            <button type="submit" class="btn btn-primary">Usuń</button>
+                        <form method="post" asp-controller="Favourites" asp-action="Delete">
+                            <input type="hidden" name="RowId" value=@rec.Id>
+                            <button type="submit" class="btn btn-danger">Usuń</button>
                         </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -48,5 +51,5 @@
     }
      </tbody>
         </table>
-
+     }
 </div>
