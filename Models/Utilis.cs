@@ -13,17 +13,17 @@ public static class Utilis
             yield return new Ingredient() { Name = item };
         }
     }
-    public static IEnumerable<RecipeCategory> GetRecipeCategories(string[] selectList,List<Category> category)
+    public static IEnumerable<RecipeCategory> GetRecipeCategories(string[] selectList, List<Category> category)
     {
         foreach (var item in selectList)
         {
-            yield return new RecipeCategory() 
+            yield return new RecipeCategory()
             {
-                CategoryId = category.Where(p=>p.Name==item).First().Id 
+                CategoryId = category.Where(p => p.Name == item).First().Id
             };
         }
     }
-    
+
     public static IEnumerable<Images> UploadedFile(RecipeViewModel model)
     {
 

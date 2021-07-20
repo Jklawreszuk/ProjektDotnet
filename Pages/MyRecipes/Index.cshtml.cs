@@ -22,27 +22,27 @@ namespace ProjektDotnet.Pages.MyRecipes
             _context = context;
         }
 
-        public IList<Recipe> Recipe { get;set; }
+        public IList<Recipe> Recipe { get; set; }
         [BindProperty]
         public int Id { get; set; }
 
         public async Task OnGetAsync()
         {
             Recipe = await _context.Recipe
-                .Include(r => r.User).Where(n=>n.UserId==User.FindFirstValue(ClaimTypes.NameIdentifier)).ToListAsync();
+                .Include(r => r.User).Where(n => n.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToListAsync();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var q = _context.Recipe.Where(n=>(n.Id==Id) && (n.UserId==User.FindFirstValue(ClaimTypes.NameIdentifier)));
-            
-            if(q.Count()>0)
+            var q = _context.Recipe.Where(n => (n.Id == Id) && (n.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)));
+
+            if (q.Count() > 0)
             {
-                
-                _context.Remove(new Recipe(){Id=Id});
+
+                _context.Remove(new Recipe() { Id = Id });
                 await _context.SaveChangesAsync();
             }
-            
+
             return RedirectToPage();
         }
     }

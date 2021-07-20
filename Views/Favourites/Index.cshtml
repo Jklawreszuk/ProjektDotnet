@@ -33,12 +33,7 @@
                     <td><a asp-controller="Article" asp-action="Index" asp-route-id="@rec.Id">Link</a>
                     </td>
                     <td>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                        <form method="post" asp-controller="Favourites" asp-action="Modify">
-                            <input type="hidden" name="RowId" value=@rec.Id>
-                            <button type="submit" class="btn btn-primary">Modyfikuj</button>
-                        </form>
-
+                        <div class="btn-group" role="group" aria-label="Narzedzia">
                         <form method="post" asp-controller="Favourites" asp-action="Delete">
                             <input type="hidden" name="RowId" value=@rec.Id>
                             <button type="submit" class="btn btn-danger">Usuń</button>

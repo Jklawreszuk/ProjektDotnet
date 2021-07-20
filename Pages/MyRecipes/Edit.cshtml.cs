@@ -40,15 +40,15 @@ namespace ProjektDotnet.Pages.MyRecipes
             Recipe = await _context.Recipe
                 .Include("User").Include("RecipeCategories.Category").Include("Ingredients").FirstOrDefaultAsync(m => m.Id == id);
 
-            var ing = Recipe?.Ingredients?.Select(p=>p.Name)?.ToArray();
-            var cat = Recipe?.RecipeCategories?.Select(p=>p.Category?.Name)?.ToArray();
+            var ing = Recipe?.Ingredients?.Select(p => p.Name)?.ToArray();
+            var cat = Recipe?.RecipeCategories?.Select(p => p.Category?.Name)?.ToArray();
             RecipeViewModel = new RecipeViewModel()
             {
-                Id=Recipe.Id,
+                Id = Recipe.Id,
                 Name = Recipe.Name,
                 Description = Recipe.Description,
                 Ingredients = ing,
-                Categories =  cat, 
+                Categories = cat,
                 ProfileImages = null
 
             };
@@ -75,7 +75,7 @@ namespace ProjektDotnet.Pages.MyRecipes
 
             Recipe = await _context.Recipe
                 .Include("User").Include("RecipeCategories.Category").Include("Ingredients").Include("Images").FirstOrDefaultAsync(m => m.Id == RecipeViewModel.Id);
-            Recipe.Name =  RecipeViewModel.Name;
+            Recipe.Name = RecipeViewModel.Name;
             Recipe.Description = RecipeViewModel.Description;
             Recipe.Ingredients = Utilis.GetIngredients(RecipeViewModel.Ingredients).ToList();
             Recipe.Date = DateTime.Now;

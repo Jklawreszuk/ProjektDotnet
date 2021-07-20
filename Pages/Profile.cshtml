@@ -16,22 +16,7 @@
 </div>
 
 <div class="row">
-
-    @foreach (var recipe in Model.Recipes)
-    {
-
-        <div class="col-md-4 py-2">
-            <div class="card h-100">
-                <img class="card-img-top" src="" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">@recipe.Name</h5>
-                    <p class="card-text">@recipe.Description</p>
-                    <a href="" class="btn btn-primary">Link</a>
-                </div>
-            </div>
-        </div>
-    }
-
+    @await Html.PartialAsync("Shared/_RecipeGrid.cshtml")
 </div>
 
 }

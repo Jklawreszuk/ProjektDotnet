@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-md-auto">
-        <h1>
+        <h1 class="h1">
             @Model.Name
         </h1>
     </div>
@@ -23,7 +23,7 @@
 <div class="row">
 
     <div class="col-md-3">
-        <h2>
+        <h2 class="h2">
             Składniki:
         </h2>
         <ul>
@@ -54,8 +54,6 @@
                     <img src="data:image/jpeg;base64,@Convert.ToBase64String(image.Image)" class="d-block w-100" alt="Image">
                     </div>
                 }
-                
-                
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -78,7 +76,7 @@
                 </h3>
             </div>
             <div class="col-12">
-                <h5  class="h5">
+                <h5 class="h5">
                     @Model.Date.ToString("dd MMMM yyyy")
                 </h5>
             </div>
@@ -92,17 +90,16 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="btn-group" role="group" aria-label="Basic example">
-<form method="post" asp-controller="Article" asp-action="Like">
+                <div class="btn-group" role="group">
+                <form method="post" asp-controller="Article" asp-action="Like">
                     <input type="hidden" name="RowId" value=@Model.Id>
                     <button type="submit" class="d-inline btn btn-primary">+</button>
                 </form>
- <form asp-controller="Article" asp-action="Dislike">
+                <form asp-controller="Article" asp-action="Dislike">
                     <input type="hidden" name="RowId" value=@Model.Id>
                     <button type="submit" class="d-inline btn btn-primary">-</button>
                 </form>
-</div>
-                
+                </div>
                
             </div>
         </div>
@@ -111,8 +108,8 @@
 </div>
 
     <div class="row">
-        <div class="col-md-12">
-            <h2>
+        <div class="col">
+            <h2 class="h2">
                 Opis wykonania
             </h2>
             <p>

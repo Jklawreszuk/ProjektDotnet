@@ -22,7 +22,7 @@ namespace ProjektDotnet.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, 
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<ApplicationUser> userManager)
         {
@@ -43,19 +43,16 @@ namespace ProjektDotnet.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            //[Required]
-            //[EmailAddress]
-            //public string Email { get; set; }
 
-            [Required]
+            [Required,Display(Name="Nazwa użytkownika")]
             public string UserName { get; set; }
 
 
-            [Required]
+            [Required,Display(Name="Hasło")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Zapamiętaj mnie")]
             public bool RememberMe { get; set; }
         }
 
@@ -92,7 +89,7 @@ namespace ProjektDotnet.Areas.Identity.Pages.Account
                 }
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, Input.RememberMe });
                 }
                 if (result.IsLockedOut)
                 {

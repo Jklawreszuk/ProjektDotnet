@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ProjektDotnet.Data;
@@ -17,7 +14,7 @@ namespace ProjektDotnet.Pages
 
         public string UserName { get; set; }
         public List<Recipe> Recipes { get; set; }
-        public ProfileModel(ILogger<ProfileModel> logger,ApplicationDbContext context)
+        public ProfileModel(ILogger<ProfileModel> logger, ApplicationDbContext context)
         {
             _logger = logger;
             _context = context;
@@ -26,7 +23,7 @@ namespace ProjektDotnet.Pages
         public void OnGet(string username)
         {
             UserName = username;
-            Recipes = _context.Recipe.Where(r=>r.User.UserName == username).OrderByDescending(d=>d.Date).ToList();
+            Recipes = _context.Recipe.Where(r => r.User.UserName == username).OrderByDescending(d => d.Date).ToList();
         }
     }
 }

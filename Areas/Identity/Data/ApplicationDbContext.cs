@@ -20,7 +20,7 @@ namespace ProjektDotnet.Data
         public DbSet<Images> Images { get; set; }
         public DbSet<Ingredient> Ingredient { get; set; }
         public DbSet<Category> Category { get; set; }
-        public DbSet<RecipeCategory> RecipeCategory { get; set; } 
+        public DbSet<RecipeCategory> RecipeCategory { get; set; }
         public DbSet<Favourites> Favourites { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Ratings> Ratings { get; set; }

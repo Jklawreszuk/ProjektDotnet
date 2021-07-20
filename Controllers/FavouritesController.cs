@@ -44,17 +44,6 @@ namespace ProjektDotnet.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
-        [HttpPost]
-        public IActionResult Modify([FromForm] int RowId)
-        {
-            var fav = _context.Favourites.Where(n =>
-            n.User == _userManager.FindByNameAsync(User.Identity.Name).Result
-            && n.RecipeId == RowId
-            );
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
-        }
-
 
 
 

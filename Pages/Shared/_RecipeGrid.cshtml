@@ -1,0 +1,13 @@
+    @foreach(var rec in Model.Recipes)
+    {
+        <div class="col-md-4 py-2">
+            <div class="card h-100">
+                <img class="card-img-top" src="" alt="">
+                <div class="card-body">
+                    <h5 class="card-title">@rec.Name</h5>
+                    <p class="card-text">@rec.Description</p>
+                    <a asp-route="Article" asp-route-id="@rec.Id" class="btn btn-primary">Link</a>
+                </div>
+            </div>
+        </div>
+    }

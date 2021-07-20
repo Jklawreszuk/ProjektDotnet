@@ -5,8 +5,9 @@
 }
 
 
-<div class="row">
-    <div class="col-12">
+<div class="row justify-content-center">
+    <div class="col-6">
+        <h1 class="h1">Dodawanie artykułu</h1>
         <form method="POST" class="form-test"  enctype="multipart/form-data">
             <div class="form-group">
                 <label asp-for="RecipeViewModel.Name">Tytuł</label>
@@ -21,7 +22,7 @@
 
             <div class="form-group">
                 <label asp-for="RecipeViewModel.Description">Opis</label>
-                <textarea class="form-control" placeholder="Wpisz swój Opis tutaj"  asp-for="RecipeViewModel.Description"></textarea>
+                <textarea class="form-control" placeholder="Wpisz swój opis tutaj"  asp-for="RecipeViewModel.Description"></textarea>
                 <span asp-validation-for="RecipeViewModel.Description" class="font-weight-bold text-danger"></span>
             </div>
 

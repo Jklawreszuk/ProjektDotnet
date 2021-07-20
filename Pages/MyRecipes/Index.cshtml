@@ -13,18 +13,17 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Recipe[0].Name)
+                    Tytuł
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Recipe[0].Description)
+                    Opis
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Recipe[0].User)
+                    Data
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Recipe[0].Date)
+                    Operacje
                 </th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -34,25 +33,24 @@
                 <tr>
                     <td>@Model.Recipe[i].Name</td>
                     <td>@Model.Recipe[i].Description</td>
-                    <td>@Model.Recipe[i].User.UserName</td>
                     <td>@Model.Recipe[i].Date</td>
                     <td>
                         <form id="deleteForm@(i)" method="POST">
                             <input type="hidden" asp-for="Id" value="@Model.Recipe[i].Id" />
                             <div class="btn-group" role="group" aria-label="Narzedzia">
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Usuń</button>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Usuń</button>
                                 <a type="button" class="btn btn-secondary" asp-page="./Edit" asp-route-id="@Model.Recipe[i].Id">Edytuj</a>
                             </div>
                         </form>
                     </td>
 
-                    <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
                 aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Napewno chcesz usunąć?</h5>
+                                    <h5 class="modal-title" id="deleteModalLabel">Napewno chcesz usunąć?</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -67,7 +65,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+            </div>
                 </tr>
             </tbody>
 
