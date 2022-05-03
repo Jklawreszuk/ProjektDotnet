@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using ProjektDotnet.Models;
-
+namespace ProjektDotnet.Models;
 public static class Utilis
 {
     public static IEnumerable<Ingredient> GetIngredients(string[] selectList)
@@ -46,8 +41,6 @@ public static class Utilis
                 {
                     throw new Exception();
                 }
-
-
 
             }
 

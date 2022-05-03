@@ -1,9 +1,7 @@
-namespace ProjektDotnet.Models
+namespace ProjektDotnet.Models;
+public class Images
 {
-    public class Images
-    {
-        public int Id { get; set; }
-        public byte[] Image { get; set; }
-        public int RecipeId { get; set; }
-    }
+    public int Id { get; set; }
+    public byte[] Image { get; set; }
+    public int RecipeId { get; set; }
 }
