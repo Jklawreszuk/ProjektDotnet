@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjektDotnet.Data;
 using ProjektDotnet.Models;
 
@@ -13,7 +10,7 @@ namespace ProjektDotnet.Pages
         private readonly ApplicationDbContext _context;
 
         public string UserName { get; set; }
-        public List<Recipe> Recipes { get; set; }
+        public IEnumerable<Recipe> Recipes { get; set; }
         public ProfileModel(ILogger<ProfileModel> logger, ApplicationDbContext context)
         {
             _logger = logger;
@@ -23,7 +20,9 @@ namespace ProjektDotnet.Pages
         public void OnGet(string username)
         {
             UserName = username;
-            Recipes = _context.Recipe.Where(r => r.User.UserName == username).OrderByDescending(d => d.Date).ToList();
+            Recipes = _context.Recipe.
+            Where(r => r.User.UserName == username).
+            OrderByDescending(d => d.Date);
         }
     }
 }

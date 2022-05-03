@@ -1,19 +1,9 @@
-﻿using System.Collections.Immutable;
-using System.Net.Mime;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using ProjektDotnet.Data;
 using ProjektDotnet.Models;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections;
 
 namespace ProjektDotnet.Pages
 {
@@ -22,7 +12,6 @@ namespace ProjektDotnet.Pages
     {
         private readonly ILogger<AddArticleModel> _logger;
         private readonly ApplicationDbContext _applicationDbContext;
-        private readonly IWebHostEnvironment _hostEnvironment;
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
 
@@ -31,11 +20,10 @@ namespace ProjektDotnet.Pages
         [BindProperty]
         public RecipeViewModel RecipeViewModel { get; set; }
 
-        public AddArticleModel(ILogger<AddArticleModel> logger, ApplicationDbContext applicationDbContext, IWebHostEnvironment hostEnvironment, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AddArticleModel(ILogger<AddArticleModel> logger, ApplicationDbContext applicationDbContext, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _applicationDbContext = applicationDbContext;
             _logger = logger;
-            _hostEnvironment = hostEnvironment;
             _userManager = userManager;
             _signInManager = signInManager;
         }

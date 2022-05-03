@@ -1,8 +1,6 @@
-using System.Linq;
 using System.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using ProjektDotnet.Data;
 using ProjektDotnet.Models;
 using Microsoft.EntityFrameworkCore;
