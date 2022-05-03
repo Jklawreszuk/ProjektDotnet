@@ -91,7 +91,7 @@ public class ArticleController : Controller
             IsLike = false
         };
 
-        var result = _context.Ratings.FindAsync(_userManager.FindByNameAsync(User.Identity.Name).Id, RowId);
+        var result = await _context.Ratings.FindAsync(_userManager.FindByNameAsync(User.Identity.Name).Id, RowId);
 
         if (result == null)
         {
