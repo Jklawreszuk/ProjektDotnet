@@ -4,7 +4,7 @@ It is a simple application to manage recipes using ASP.NET Core.
 
 ## Prerequisites
 
-- [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet/3.1)
+- [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 
 ## Running
 
